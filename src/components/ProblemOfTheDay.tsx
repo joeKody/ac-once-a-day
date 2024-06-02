@@ -24,7 +24,7 @@ export default async function ProblemOfTheDay({
   const judgeList = ["otog.in.th"];
   const judgeTaskList = ["https://otog.in.th/problem"];
   const judgeApiList = ["https://api.otog.in.th/problem"];
-  const judgeStatementApiList = ["https://otog.in.th/problem"];
+  const judgeStatementApiList = ["https://api.otog.in.th/problem/doc"];
 
   const judgeIdx = Math.floor(myRand() * (judgeList.length - 1));
   const judge = judgeList[judgeIdx];
@@ -76,12 +76,12 @@ export default async function ProblemOfTheDay({
       <CardBody className="flex flex-col gap-2">
         {
           taskData.timeLimit ? (
-            <p className="text-default-700">Time limit: <Chip className="font-bold">{taskData.timeLimit} milliseconds</Chip></p>
+            <div className="text-default-700">Time limit: <Chip className="font-bold">{taskData.timeLimit} milliseconds</Chip></div>
           ) : (<> </>)
         }
         {
           taskData.memoryLimit ? (
-            <p className="text-default-700">Memory limit: <Chip className="font-bold">{taskData.memoryLimit} megabytes</Chip></p>
+            <div className="text-default-700">Memory limit: <Chip className="font-bold">{taskData.memoryLimit} megabytes</Chip></div>
           ) : (<> </>)
         }
       </CardBody>
