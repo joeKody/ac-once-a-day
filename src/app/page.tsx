@@ -1,4 +1,5 @@
-import ProblemOfTheDay from "../components/ProblemOfTheDay";
+import ProblemOfTheDay from "@/components/ProblemOfTheDay";
+import ProblemList from "@/components/ProblemList";
 
 export default function Home() {
   return (
@@ -9,6 +10,10 @@ export default function Home() {
       <div className="w-full md:w-[400px] lg:w-[450px] flex flex-col">
         <h2 className="text-default-600 text-md lg:text-lg ml-1 mb-2">Problem of the day</h2>
         <ProblemOfTheDay className="w-full" />
+      </div>
+      <div className="w-full md:w-[400px] lg:w-[450px] flex flex-col">
+        <h2 className="text-default-600 text-md lg:text-lg ml-1 mb-2">More problems!</h2>
+        <ProblemList className="w-full"/>
       </div>
     </main>
   );

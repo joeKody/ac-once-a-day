@@ -27,11 +27,11 @@ export async function PUT(req: NextRequest) {
     try {
         const request = await req.json();
         const taskIdx = request.taskIdx;
+        console.log(taskIdx);
 
-        const seed = new Date().toDateString();
+        const seed = new Date().toDateString().concat(taskIdx.toString());;
+        const taskKey = seed;
         const myRand = notMyRandom(seed);
-
-        const taskKey = seed.concat(taskIdx.toString());
 
         if (generatedTasks.has(taskKey)) {
             return NextResponse.json(generatedTasks.get(taskKey));
