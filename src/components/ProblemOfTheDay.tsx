@@ -58,7 +58,7 @@ export default function ProblemOfTheDay({
         </Link>
         <Link href={`${taskData.judgeTask}/${taskData.id}`}
               color="foreground" target="_blank" className="w-full text-left flex flex-col items-start">
-          <h3 className={`text-3xl font-bold ${noto_sans.className}`}>
+          <h3 className={`text-2xl lg:text-3xl font-bold ${noto_sans.className}`}>
             {taskData.name}
           </h3>
           {taskData.sname ?

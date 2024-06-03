@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={inter.className}>
         <Providers>
-          <div className="flex flex-col bg-zinc-950 items-center min-h-screen">
+          <div className="flex flex-col bg-gradient-to-tr from-zinc-900 via-neutral-950 to-zinc-900 to items-center min-h-screen">
             {children}
           </div>
         </Providers>
