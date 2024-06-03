@@ -15,7 +15,7 @@ export default function Home() {
         <h2 className="text-default-600 text-md lg:text-lg ml-1 mb-2">Problem of the day</h2>
         <Problem className="w-full" taskIdx={0}/>
       </div>
-      <div className="w-full md:w-[400px] lg:w-[450px] flex flex-col">
+      <div className="w-full pb-4 md:w-[400px] lg:w-[450px] flex flex-col">
         <h2 className="text-default-600 text-md lg:text-lg ml-1 mb-2">More problems!</h2>
         <ProblemList className="w-full"/>
       </div>

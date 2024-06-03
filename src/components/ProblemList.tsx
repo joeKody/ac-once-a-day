@@ -7,6 +7,7 @@ import {
     CarouselPrevious,
     type CarouselApi
 } from "./ui/carousel";
+import { useMediaQuery } from "react-responsive";
 import Problem from "@/components/ProblemCard";
 import { useEffect, useState } from "react";
 
@@ -16,6 +17,7 @@ export default function ProblemList({
     className: string;
 }>) {
   
+  const isLaptop = useMediaQuery({ query: "(max-width: 1024px)" });
   const [ api, setApi ] = useState<CarouselApi>();
   const [ currentTask, setCurrentTask ] = useState(0);
   const [ tasksAmount, setTasksAmount ] = useState(10);
@@ -31,7 +33,7 @@ export default function ProblemList({
   }, [api, currentTask, tasksAmount]);
 
   return (
-      <Carousel className={className} setApi={setApi}>
+      <Carousel className={`${className}`} orientation={isLaptop ? "horizontal" : "horizontal"} setApi={setApi}>
           <CarouselContent>
               {Array.from({ length: tasksAmount }).map((_, index) => (
                   <CarouselItem key={index}>
@@ -39,8 +41,12 @@ export default function ProblemList({
                   </CarouselItem>
               ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          {!isLaptop && (
+            <>
+              <CarouselPrevious />
+              <CarouselNext />
+            </>
+          )}
       </Carousel>
   );
 }
