@@ -1,6 +1,6 @@
-import ProblemOfTheDay from "@/components/ProblemOfTheDay";
 import ProblemList from "@/components/ProblemList";
 import HeroText from "@/components/HeroText";
+import Problem from "@/components/ProblemCard";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       </h1>
       <div className="w-full md:w-[400px] lg:w-[450px] flex flex-col">
         <h2 className="text-default-600 text-md lg:text-lg ml-1 mb-2">Problem of the day</h2>
-        <ProblemOfTheDay className="w-full" />
+        <Problem className="w-full" taskIdx={0}/>
       </div>
       <div className="w-full md:w-[400px] lg:w-[450px] flex flex-col">
         <h2 className="text-default-600 text-md lg:text-lg ml-1 mb-2">More problems!</h2>
