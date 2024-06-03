@@ -1,4 +1,6 @@
+"use client"
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -8,60 +10,53 @@ import {
   Divider,
   Link,
 } from "@nextui-org/react";
-import { notMyRandom } from "@/lib/notMyRandom";
+import { use, useEffect, useState } from "react";
 import Image from "next/image";
 import { Noto_Sans_Thai } from "next/font/google";
 
 const noto_sans = Noto_Sans_Thai({ subsets: ["latin"] });
 
-export default async function ProblemOfTheDay({
+export default function ProblemOfTheDay({
   className,
-}: Readonly<{ className: string }>) {
-
-  const seed = new Date().toDateString();
-  const myRand = notMyRandom(seed);
-
-  const judgeList = ["otog.in.th"];
-  const judgeTaskList = ["https://otog.in.th/problem"];
-  const judgeApiList = ["https://api.otog.in.th/problem"];
-  const judgeStatementApiList = ["https://api.otog.in.th/problem/doc"];
-
-  const judgeIdx = Math.floor(myRand() * (judgeList.length - 1));
-  const judge = judgeList[judgeIdx];
-  const judgeApi = judgeApiList[judgeIdx];
-  const judgeTask = judgeTaskList[judgeIdx];
-  const judgeStatementApi = judgeStatementApiList[judgeIdx];
-
-  let taskID = Math.floor(myRand() * 1021) + 1;
-  let taskValid = false;
-  let taskData = {
-    id: null,
-    name: "Loading...",
-    sname: "Loading...",
-    timeLimit: 0,
-    memoryLimit: 0,
-  };
-  while (!taskValid) {
-    try {
-      const request = await fetch(`${judgeApi}/${taskID}`);
-      const response = request.status;
-      if (response === 200) {
-        taskValid = true;
-        taskData = await request.json();
-      } else {
-        taskID = Math.floor(myRand() * 1021) + 1;
-      }
-    } catch (e){
-      console.error(e);
-    }
-  }
+}: Readonly<
+  {
+    className: string 
+  }>
+) {
+  const [taskData, setTaskData] = useState({
+      judge: "",
+      judgeApi: "",
+      judgeTask: "",
+      judgeStatementApi: "",
+      id: "",
+      name: "Loading...",
+      sname: "Loading...",
+      timeLimit: 0,
+      memoryLimit: 0,
+  });
+  useEffect(() => {
+    fetch("/api/task", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ taskIdx: 0 }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTaskData(data);
+        console.log(taskData);
+      });
+  }, []);
 
   return (
     
     <Card className={className}>
       <CardHeader className="flex gap-4">
-        <Image src={`/judges_icon/${judge}.png`} alt={judge} width={50} height={50}/>
-        <Link href={`${judgeTask}/${taskData.id}`}
+        <Link href={`https://${taskData.judge}`} target="_black">
+          <Image src={`/judges_icon/${taskData.judge}.png`} alt={taskData.judge} width={50} height={50}/>
+        </Link>
+        <Link href={`${taskData.judgeTask}/${taskData.id}`}
               color="foreground" target="_blank" className="w-full text-left flex flex-col items-start">
           <h3 className={`text-3xl font-bold ${noto_sans.className}`}>
             {taskData.name}
@@ -88,7 +83,7 @@ export default async function ProblemOfTheDay({
       <Divider/>
       <CardFooter>
         <p className="text-default-700">
-          <Link href={`${judgeStatementApi}/${taskData.id}`} size="lg" isExternal showAnchorIcon color="primary" target="_blank">
+          <Link href={`${taskData.judgeStatementApi}/${taskData.id}`} size="lg" isExternal showAnchorIcon color="primary" target="_blank">
             Problem statement
           </Link>
         </p>
